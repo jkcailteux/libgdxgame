@@ -1,22 +1,21 @@
 package com.mygdx.game.model;
 
 /**
- * Created by jeffcailteux on 1/15/15.
+ * Created by jeffcailteux on 1/16/15.
  */
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
-public class Player {
-
-    public static final float MAX_VELOCITY = 10f;
-    public static final float DAMPING = 0.87f;
-    public static final float GRAVITY = -22.0f;
-    public static final float MAX_JUMP_SPEED   = 10f;
-    public static final long LONG_JUMP_PRESS = 150l;
+public class Enemy {
 
     public enum State {
-        Standing, Walking, Jumping, Falling
+        Standing, Walking, Jumping, Falling, Flying, Running
     }
+
+    private static final float MAX_VELOCITY = 10f;
+    private static final float DAMPING = 1.6f;
 
     private State state;
     private boolean facingRight;
@@ -29,9 +28,14 @@ public class Player {
     private float width;
     private float height;
 
-    public Player(){
-        position = new Vector2();
+    private TextureRegion bossFrame;
+
+    public Enemy(Vector2 position) {
+
+        this.position = position;
+
         velocity = new Vector2();
+        velocity.x = -Player.MAX_VELOCITY;
         acceleration = new Vector2();
         state = State.Standing;
         facingRight = true;
@@ -39,7 +43,13 @@ public class Player {
         grounded = true;
     }
 
-    /**************************************************** Getters/Setters *******************************************************/
+    /**
+     * ************************************************* Getters/Setters ******************************************************
+     */
+
+    public TextureRegion getBossFrame() {
+        return bossFrame;
+    }
 
     public Vector2 getAcceleration() {
         return acceleration;
